@@ -61,7 +61,7 @@ The [node.js](https://nodejs.org/en/) repository is now added.
 
 ###  Yarn Repository
 
-Another repository needs to be added so we can get the version of [Yarn](https://yarnpkg.com/en/) used by [Mastodon](https://github.com/etherhive/etherhive/).
+Another repository needs to be added so we can get the version of [Yarn](https://yarnpkg.com/en/) used by [EtherHive](https://github.com/etherhive/etherhive/).
 
 This is how you add the repository:
 
@@ -77,13 +77,13 @@ Now you need to install [Yarn](https://yarnpkg.com/en/) plus some more software.
 
 #### Explanation of the dependencies
 
-- imagemagick - Mastodon uses imagemagick for image related operations
-- ffmpeg - Mastodon uses ffmpeg for conversion of GIFs to MP4s
-- libprotobuf-dev and protobuf-compiler - Mastodon uses these for language detection
+- imagemagick - EtherHive uses imagemagick for image related operations
+- ffmpeg - EtherHive uses ffmpeg for conversion of GIFs to MP4s
+- libprotobuf-dev and protobuf-compiler - EtherHive uses these for language detection
 - nginx - nginx is our frontend web server
-- redis-* - Mastodon uses redis for its in-memory data structure store
-- postgresql-* - Mastodon uses PostgreSQL as its SQL database
-- nodejs - Node is used for Mastodon's streaming API
+- redis-* - EtherHive uses redis for its in-memory data structure store
+- postgresql-* - EtherHive uses PostgreSQL as its SQL database
+- nodejs - Node is used for EtherHive's streaming API
 - yarn - Yarn is a Node.js package manager
 - Other -dev packages, g++ - these are needed for the compilation of Ruby using ruby-build.
 
@@ -122,7 +122,7 @@ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 ```
 
 Now that [`rbenv`](https://github.com/rbenv/rbenv) and [`ruby-build`](https://github.com/rbenv/ruby-build) are installed, we will install the
-[Ruby](https://www.ruby-lang.org/en/) version which [Mastodon](https://github.com/etherhive/etherhive/) uses. That version will also need to be enabled.
+[Ruby](https://www.ruby-lang.org/en/) version which [EtherHive](https://github.com/etherhive/etherhive/) uses. That version will also need to be enabled.
 
 To enable [Ruby](https://www.ruby-lang.org/en/), run:
 
@@ -308,7 +308,7 @@ as your TLS certificate provider.
 
 We need to generate Let's Encrypt certificates.
 
-**Make sure to replace any occurrence of 'example.com' with your Mastodon instance's domain.**
+**Make sure to replace any occurrence of 'example.com' with your EtherHive instance's domain.**
 
 Make sure that [nginx](http://nginx.org) is stopped at this point:
 
@@ -362,7 +362,7 @@ systemctl restart cron
 
 That is it. Your server will renew your [Let's Encrypt](https://letsencrypt.org/) certificate.
 
-## Mastodon Application Configuration
+## EtherHive Application Configuration
 
 We will configure the EtherHive application.
 
@@ -373,7 +373,7 @@ For this we will switch to the `etherhive` system user:
 sudo su - etherhive
 ```
 
-Change directory to `~live` and edit the [Mastodon](https://github.com/etherhive/etherhive/) application configuration:
+Change directory to `~live` and edit the [EtherHive](https://github.com/etherhive/etherhive/) application configuration:
 
 ```sh
 cd ~/live
@@ -437,9 +437,9 @@ RAILS_ENV=production bundle exec rails assets:precompile
 
 **The assets precompilation takes a couple minutes, so this is a good time to take another break.**
 
-## Mastodon systemd Service Files
+## EtherHive systemd Service Files
 
-We will need three [systemd](https://github.com/systemd/systemd) service files for each Mastodon service.
+We will need three [systemd](https://github.com/systemd/systemd) service files for each EtherHive service.
 
 Now switch back to the root user.
 

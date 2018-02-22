@@ -43,7 +43,7 @@ Now the image can be used to generate secrets. Run the command below for each of
 
 To enable Web Push notifications, you should generate a private/public key pair and put them into your `.env.production` file. Run the command below to create `VAPID_PRIVATE_KEY` and `VAPID_PUBLIC_KEY` then copy the result into the `.env.production` file: 
 
-    docker-compose run --rm web rake mastodon:webpush:generate_vapid_key
+    docker-compose run --rm web rake etherhive:webpush:generate_vapid_key
 
 Then you should run the `db:migrate` command to create the database, or migrate it from an older release:
 
@@ -92,7 +92,7 @@ This approach makes updating to the latest version a real breeze.
 3. `git checkout TAG_NAME` to use the tag code. (If you have committed changes, use `git merge TAG_NAME` instead, though this isn't likely.)
 4. Only if you ran `git stash`, now run `git stash pop` to redo your changes to `docker-compose.yml`. Double check the contents of this file.
 5. Build the updated EtherHive image. 
-- If you are using a prebuilt image: First, edit the `image: gargron/mastodon` lines in `docker-compose.yml` to include the tag for the new version. E.g. `image: gargron/mastodon:v2.2.0`
+- If you are using a prebuilt image: First, edit the `image: etherhive/etherhive` lines in `docker-compose.yml` to include the tag for the new version. E.g. `image: etherhive/etherhive:v1.2.0`
 - To pull the prebuilt image, or build your own from the updated code: `docker-compose build`
 6. (optional) `docker-compose run --rm web rake db:migrate` to perform database migrations. Does nothing if your database is up to date.
 7. (optional) `docker-compose run --rm web rake assets:precompile` to compile new JS and CSS assets.

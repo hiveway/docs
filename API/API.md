@@ -233,7 +233,7 @@ Creates a new OAuth app.
 
 Returns `id`, `client_id` and `client_secret` which can be used with [OAuth authentication in your 3rd party app](Testing-with-cURL.md).
 
-These values should be requested in the app itself from the API for each new app install + mastodon domain combo, and stored in the app for future requests.
+These values should be requested in the app itself from the API for each new app install + etherhive domain combo, and stored in the app for future requests.
 
 ### Blocks
 

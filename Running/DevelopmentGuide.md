@@ -1,7 +1,7 @@
 Development guide
 =================
 
-**Don't use Docker to do development**. It's a quick way to get EtherHive running in production, it's **really really inconvenient for development**. Normally in Rails development environment you get hot reloading of backend code and on-the-fly compilation of assets like JS and CSS, but you lose those benefits by compiling a Docker image. If you want to contribute to Mastodon, it is worth it to simply set up a proper development environment.
+**Don't use Docker to do development**. It's a quick way to get EtherHive running in production, it's **really really inconvenient for development**. Normally in Rails development environment you get hot reloading of backend code and on-the-fly compilation of assets like JS and CSS, but you lose those benefits by compiling a Docker image. If you want to contribute to EtherHive, it is worth it to simply set up a proper development environment.
 
 ## Linux
 
@@ -28,11 +28,11 @@ To setup the `etherhive_development` database, run:
 
     bundle exec rails db:setup
 
-You can then run Mastodon with:
+You can then run EtherHive with:
 
     bundle exec rails server
 
-Since 1.4, we are using Webpack, which in development environment needs to be started as well as the command above:
+We are using Webpack, which in development environment needs to be started as well as the command above:
 
     ./bin/webpack-dev-server
     
@@ -76,7 +76,7 @@ Follow the Linux setup as described above, but with these considerations:
   it cannot be found while building the gem, this is likely the problem. You
   will need to directly modify `mkmf.rb` to get this to install.
 
-The bundle configuration as of Mastodon 2.0's Gemfile:
+The bundle configuration as of EtherHive 2.0's Gemfile:
 
 ```sh
 bundle config build.nokogiri --use-system-libraries --with-xml2-include=/usr/local/include/libxml2/ --with-opt-include=/usr/local/include --with-xslt-include=/usr/local/include/libxslt --with-exslt-include=/usr/local/include/libexslt --with-xml2-lib=/usr/local/lib
@@ -100,7 +100,7 @@ Modify `mfmk.rb`:
 
 ## Mac
 
-These are self-contained instructions for setting up a development environment on a macOS system. It is assumed that you’ve cloned your fork of Mastodon to a local working directory and that you are in Terminal and in that directory.
+These are self-contained instructions for setting up a development environment on a macOS system. It is assumed that you’ve cloned your fork of EtherHive to a local working directory and that you are in Terminal and in that directory.
 
 ### Prerequisites
 
@@ -164,7 +164,7 @@ In separate Terminal windows/tabs:
 
 1. Start PostgreSQL: `/usr/local/bin/postgres`
 2. Start Redis: `redis-server`
-3. Start Mastodon (from the Mastodon folder): `foreman start`
+3. Start EtherHive (from the EtherHive folder): `foreman start`
 
 Go to http://localhost:3000 to see your development instance.
 
