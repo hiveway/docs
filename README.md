@@ -13,7 +13,7 @@ EtherHive is to become a direct democratic social network, running fully autonom
 - [Tips for app developers](API/Tips.md)
 - [Push notifications](API/Push.md)
 
-### [Running EtherHive](Production)
+### Running EtherHive
 #### In production
 
 >**Please note**: It is highly recommended to run a [stable release](https://github.com/etherhive/etherhive/releases) of EtherHive !
