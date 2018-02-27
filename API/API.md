@@ -43,7 +43,7 @@ ___
 
 ## Available libraries
 
-There are several libraries to interact with the EtherHive API. The list of libraries can be found on the [Libraries page](Libraries.md).
+There are several libraries to interact with the Hiveway API. The list of libraries can be found on the [Libraries page](Libraries.md).
 
 ___
 
@@ -54,7 +54,7 @@ ___
 When an array parameter is mentioned, the Rails convention of specifying array parameters in query strings is meant.
 For example, a ruby array like `foo = [1, 2, 3]` should be encoded in the params as `foo[]=1&foo[]=2&foo[]=3`, with empty square brackets.
 
-When sending binary data, such as files, EtherHive expects clients to use the `multipart/form-data` MIME type. This applies to media attachments, account avatars and account headers.
+When sending binary data, such as files, Hiveway expects clients to use the `multipart/form-data` MIME type. This applies to media attachments, account avatars and account headers.
 
 ###### Selecting ranges
 
@@ -64,7 +64,7 @@ See the [Link header RFC](https://tools.ietf.org/html/rfc5988) for more informat
 
 ###### Errors
 
-If the request you make doesn't go through, EtherHive will usually respond with an [Error](#error).
+If the request you make doesn't go through, Hiveway will usually respond with an [Error](#error).
 
 ___
 
@@ -233,7 +233,7 @@ Creates a new OAuth app.
 
 Returns `id`, `client_id` and `client_secret` which can be used with [OAuth authentication in your 3rd party app](Testing-with-cURL.md).
 
-These values should be requested in the app itself from the API for each new app install + etherhive domain combo, and stored in the app for future requests.
+These values should be requested in the app itself from the API for each new app install + hiveway domain combo, and stored in the app for future requests.
 
 ### Blocks
 
@@ -492,7 +492,7 @@ Returns the [Notification](#notification).
 
     POST /api/v1/notifications/clear
 
-Deletes all notifications from the EtherHive server for the authenticated user.
+Deletes all notifications from the Hiveway server for the authenticated user.
 Returns an empty object.
 
 #### Dismissing a single notification:
@@ -505,7 +505,7 @@ Form data:
 | ----- | ----------------------------  | ---------- |
 | `id`  | Notification ID | no         |    
 
-Deletes a single notification from the EtherHive server for the authenticated user.
+Deletes a single notification from the Hiveway server for the authenticated user.
 Returns an empty object.
 
 ### Reports
@@ -545,7 +545,7 @@ Form data:
 
 Returns [Results](#results).
 
-If `q` is a URL, EtherHive will attempt to fetch the provided account or status. Otherwise, it will do a local account and hashtag search.
+If `q` is a URL, Hiveway will attempt to fetch the provided account or status. Otherwise, it will do a local account and hashtag search.
 
 ### Statuses
 
@@ -768,7 +768,7 @@ The most important part of an error response is the HTTP status code. Standard s
 | `title`                  | The instance's title                                                     | no       |
 | `description`            | A description for the instance                                           | no       |
 | `email`                  | An email address which can be used to contact the instance administrator | no       |
-| `version`                | The EtherHive version used by instance.                                   | no       |
+| `version`                | The Hiveway version used by instance.                                   | no       |
 | `urls`                   | `streaming_api`                                                          | no       |
 
 ### List
