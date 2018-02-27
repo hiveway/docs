@@ -1,4 +1,4 @@
-# EtherHive Production Deployment Guide
+# Hiveway Production Deployment Guide
 
 **Disclaimer:**
 
@@ -8,7 +8,7 @@ This document is also written with the expectation that you have a technical lev
 
 ## What is this guide?
 
-This guide is a walk through of the setup process of a [EtherHive](https://github.com/etherhive/etherhive/) instance.
+This guide is a walk through of the setup process of a [Hiveway](https://github.com/hiveway/hiveway/) instance.
 
 We use example.com to represent a domain or sub-domain. Example.com should be replaced with your instance domain or sub-domain.
 
@@ -34,7 +34,7 @@ The records added are:
 > Using `tmux` when following through with this guide will be helpful.
 >
 >
-> Not only will this help you not lose your place if you are disconnected, it will let you have multiple terminal windows open for switching contexts (root user versus the etherhive user).
+> Not only will this help you not lose your place if you are disconnected, it will let you have multiple terminal windows open for switching contexts (root user versus the hiveway user).
 >
 > You can install [tmux](https://github.com/tmux/tmux/wiki) from the package manager:
 >
@@ -61,7 +61,7 @@ The [node.js](https://nodejs.org/en/) repository is now added.
 
 ###  Yarn Repository
 
-Another repository needs to be added so we can get the version of [Yarn](https://yarnpkg.com/en/) used by [EtherHive](https://github.com/etherhive/etherhive/).
+Another repository needs to be added so we can get the version of [Yarn](https://yarnpkg.com/en/) used by [Hiveway](https://github.com/hiveway/hiveway/).
 
 This is how you add the repository:
 
@@ -77,13 +77,13 @@ Now you need to install [Yarn](https://yarnpkg.com/en/) plus some more software.
 
 #### Explanation of the dependencies
 
-- imagemagick - EtherHive uses imagemagick for image related operations
-- ffmpeg - EtherHive uses ffmpeg for conversion of GIFs to MP4s
-- libprotobuf-dev and protobuf-compiler - EtherHive uses these for language detection
+- imagemagick - Hiveway uses imagemagick for image related operations
+- ffmpeg - Hiveway uses ffmpeg for conversion of GIFs to MP4s
+- libprotobuf-dev and protobuf-compiler - Hiveway uses these for language detection
 - nginx - nginx is our frontend web server
-- redis-* - EtherHive uses redis for its in-memory data structure store
-- postgresql-* - EtherHive uses PostgreSQL as its SQL database
-- nodejs - Node is used for EtherHive's streaming API
+- redis-* - Hiveway uses redis for its in-memory data structure store
+- postgresql-* - Hiveway uses PostgreSQL as its SQL database
+- nodejs - Node is used for Hiveway's streaming API
 - yarn - Yarn is a Node.js package manager
 - Other -dev packages, g++ - these are needed for the compilation of Ruby using ruby-build.
 
@@ -96,14 +96,14 @@ apt -y install imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file git-co
 Let us create this user first:
 
 ```sh
-adduser etherhive
+adduser hiveway
 ```
 
-Log in as the `etherhive` user:
+Log in as the `hiveway` user:
 
 
 ```sh
-sudo su - etherhive
+sudo su - hiveway
 ```
 
 We will need to set up [`rbenv`](https://github.com/rbenv/rbenv) and [`ruby-build`](https://github.com/rbenv/ruby-build):
@@ -122,7 +122,7 @@ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 ```
 
 Now that [`rbenv`](https://github.com/rbenv/rbenv) and [`ruby-build`](https://github.com/rbenv/ruby-build) are installed, we will install the
-[Ruby](https://www.ruby-lang.org/en/) version which [EtherHive](https://github.com/etherhive/etherhive/) uses. That version will also need to be enabled.
+[Ruby](https://www.ruby-lang.org/en/) version which [Hiveway](https://github.com/hiveway/hiveway/) uses. That version will also need to be enabled.
 
 To enable [Ruby](https://www.ruby-lang.org/en/), run:
 
@@ -135,15 +135,15 @@ rbenv global 2.5.0
 
 ### node.js And Ruby Dependencies
 
-Now that [Ruby](https://www.ruby-lang.org/en/) is enabled, we will clone the [EtherHive GIT repository](https://github.com/etherhive/etherhive/) and install the [Ruby](https://www.ruby-lang.org/en/) and [node.js](https://nodejs.org/en/) dependancies.
+Now that [Ruby](https://www.ruby-lang.org/en/) is enabled, we will clone the [Hiveway GIT repository](https://github.com/hiveway/hiveway/) and install the [Ruby](https://www.ruby-lang.org/en/) and [node.js](https://nodejs.org/en/) dependancies.
 
 Run the following to clone and install:
 
 ```sh
-# Return to etherhive user's home directory
+# Return to hiveway user's home directory
 cd ~
-# Clone the etherhive git repository into ~/live
-git clone https://github.com/etherhive/etherhive.git live
+# Clone the hiveway git repository into ~/live
+git clone https://github.com/hiveway/hiveway.git live
 # Change directory to ~live
 cd ~/live
 # Checkout to the latest stable branch
@@ -156,11 +156,11 @@ bundle install -j$(getconf _NPROCESSORS_ONLN) --deployment --without development
 yarn install --pure-lockfile
 ```
 
-That is all we need to do for now with the `etherhive` user, you can now `exit` back to root.
+That is all we need to do for now with the `hiveway` user, you can now `exit` back to root.
 
 ## PostgreSQL Database Creation
 
-[EtherHive](https://github.com/etherhive/etherhive/) requires access to a [PostgreSQL](https://www.postgresql.org) instance.
+[Hiveway](https://github.com/hiveway/hiveway/) requires access to a [PostgreSQL](https://www.postgresql.org) instance.
 
 Create a user for a [PostgreSQL](https://www.postgresql.org) instance:
 
@@ -169,7 +169,7 @@ Create a user for a [PostgreSQL](https://www.postgresql.org) instance:
 sudo -u postgres psql
 
 # In the following prompt
-CREATE USER etherhive CREATEDB;
+CREATE USER hiveway CREATEDB;
 \q
 ```
 
@@ -177,7 +177,7 @@ CREATE USER etherhive CREATEDB;
 
 ## nginx Configuration
 
-You need to configure [nginx](http://nginx.org) to serve your [EtherHive](https://github.com/etherhive/etherhive/) instance.
+You need to configure [nginx](http://nginx.org) to serve your [Hiveway](https://github.com/hiveway/hiveway/) instance.
 
 **Reminder: Replace all occurrences of example.com with your own instance's domain or sub-domain.**
 
@@ -197,7 +197,7 @@ server {
   listen 80;
   listen [::]:80;
   server_name example.com;
-  root /home/etherhive/live/public;
+  root /home/hiveway/live/public;
   # Useful for Let's Encrypt
   location /.well-known/acme-challenge/ { allow all; }
   location / { return 301 https://$host$request_uri; }
@@ -220,7 +220,7 @@ server {
   sendfile             on;
   client_max_body_size 0;
 
-  root /home/etherhive/live/public;
+  root /home/hiveway/live/public;
 
   gzip on;
   gzip_disable "msie6";
@@ -308,7 +308,7 @@ as your TLS certificate provider.
 
 We need to generate Let's Encrypt certificates.
 
-**Make sure to replace any occurrence of 'example.com' with your EtherHive instance's domain.**
+**Make sure to replace any occurrence of 'example.com' with your Hiveway instance's domain.**
 
 Make sure that [nginx](http://nginx.org) is stopped at this point:
 
@@ -328,7 +328,7 @@ After that successfully completes, we will use the webroot method. This requires
 ```sh
 systemctl start nginx
 # The letsencrypt tool will ask if you want issue a new cert, please choose that option
-letsencrypt certonly --webroot -d example.com -w /home/etherhive/live/public/
+letsencrypt certonly --webroot -d example.com -w /home/hiveway/live/public/
 ```
 
 ### Automated Renewal Of Let's Encrypt Certificate
@@ -362,18 +362,18 @@ systemctl restart cron
 
 That is it. Your server will renew your [Let's Encrypt](https://letsencrypt.org/) certificate.
 
-## EtherHive Application Configuration
+## Hiveway Application Configuration
 
-We will configure the EtherHive application.
+We will configure the Hiveway application.
 
-For this we will switch to the `etherhive` system user:
+For this we will switch to the `hiveway` system user:
 
 
 ```sh
-sudo su - etherhive
+sudo su - hiveway
 ```
 
-Change directory to `~live` and edit the [EtherHive](https://github.com/etherhive/etherhive/) application configuration:
+Change directory to `~live` and edit the [Hiveway](https://github.com/hiveway/hiveway/) application configuration:
 
 ```sh
 cd ~/live
@@ -391,9 +391,9 @@ REDIS_PORT=6379
 # Your PostgreSQL host
 DB_HOST=/var/run/postgresql
 # Your PostgreSQL user
-DB_USER=etherhive
+DB_USER=hiveway
 # Your PostgreSQL DB name
-DB_NAME=etherhive_production
+DB_NAME=hiveway_production
 # Leave DB password empty
 DB_PASS=
 # Your DB_PORT
@@ -411,7 +411,7 @@ SECRET_KEY_BASE=
 OTP_SECRET=
 
 # Web Push VAPID keys
-# Generate with `RAILS_ENV=production bundle exec rake etherhive:webpush:generate_vapid_key`
+# Generate with `RAILS_ENV=production bundle exec rake hiveway:webpush:generate_vapid_key`
 VAPID_PRIVATE_KEY=
 VAPID_PUBLIC_KEY=
 
@@ -437,26 +437,26 @@ RAILS_ENV=production bundle exec rails assets:precompile
 
 **The assets precompilation takes a couple minutes, so this is a good time to take another break.**
 
-## EtherHive systemd Service Files
+## Hiveway systemd Service Files
 
-We will need three [systemd](https://github.com/systemd/systemd) service files for each EtherHive service.
+We will need three [systemd](https://github.com/systemd/systemd) service files for each Hiveway service.
 
 Now switch back to the root user.
 
-For the [EtherHive](https://github.com/etherhive/etherhive/) web workers service place the following in `/etc/systemd/system/etherhive-web.service`:
+For the [Hiveway](https://github.com/hiveway/hiveway/) web workers service place the following in `/etc/systemd/system/hiveway-web.service`:
 
 ```
 [Unit]
-Description=etherhive-web
+Description=hiveway-web
 After=network.target
 
 [Service]
 Type=simple
-User=etherhive
-WorkingDirectory=/home/etherhive/live
+User=hiveway
+WorkingDirectory=/home/hiveway/live
 Environment="RAILS_ENV=production"
 Environment="PORT=3000"
-ExecStart=/home/etherhive/.rbenv/shims/bundle exec puma -C config/puma.rb
+ExecStart=/home/hiveway/.rbenv/shims/bundle exec puma -C config/puma.rb
 ExecReload=/bin/kill -SIGUSR1 $MAINPID
 TimeoutSec=15
 Restart=always
@@ -465,20 +465,20 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-For [EtherHive](https://github.com/etherhive/etherhive/) background queue service, place the following in `/etc/systemd/system/etherhive-sidekiq.service`:
+For [Hiveway](https://github.com/hiveway/hiveway/) background queue service, place the following in `/etc/systemd/system/hiveway-sidekiq.service`:
 
 ```
 [Unit]
-Description=etherhive-sidekiq
+Description=hiveway-sidekiq
 After=network.target
 
 [Service]
 Type=simple
-User=etherhive
-WorkingDirectory=/home/etherhive/live
+User=hiveway
+WorkingDirectory=/home/hiveway/live
 Environment="RAILS_ENV=production"
 Environment="DB_POOL=5"
-ExecStart=/home/etherhive/.rbenv/shims/bundle exec sidekiq -c 5 -q default -q mailers -q pull -q push
+ExecStart=/home/hiveway/.rbenv/shims/bundle exec sidekiq -c 5 -q default -q mailers -q pull -q push
 TimeoutSec=15
 Restart=always
 
@@ -486,17 +486,17 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-For the [EtherHive](https://github.com/etherhive/etherhive/) streaming API service place the following in `/etc/systemd/system/etherhive-streaming.service`:
+For the [Hiveway](https://github.com/hiveway/hiveway/) streaming API service place the following in `/etc/systemd/system/hiveway-streaming.service`:
 
 ```
 [Unit]
-Description=etherhive-streaming
+Description=hiveway-streaming
 After=network.target
 
 [Service]
 Type=simple
-User=etherhive
-WorkingDirectory=/home/etherhive/live
+User=hiveway
+WorkingDirectory=/home/hiveway/live
 Environment="NODE_ENV=production"
 Environment="PORT=4000"
 ExecStart=/usr/bin/npm run start
@@ -510,33 +510,33 @@ WantedBy=multi-user.target
 Now you need to enable all of these services:
 
 ```sh
-systemctl enable /etc/systemd/system/etherhive-*.service
+systemctl enable /etc/systemd/system/hiveway-*.service
 ```
 
 Now start the services:
 
 ```sh
-systemctl start etherhive-streaming.service
-systemctl start etherhive-sidekiq.service
-systemctl start etherhive-web.service
+systemctl start hiveway-streaming.service
+systemctl start hiveway-sidekiq.service
+systemctl start hiveway-web.service
 ```
 
 Check that they are properly running:
 
 ```sh
-systemctl status etherhive-*.service
+systemctl status hiveway-*.service
 ```
 
 ## Remote media attachment cache cleanup
 
-EtherHive downloads media attachments from other instances and caches it locally for viewing. This cache can grow quite large if
+hiveway downloads media attachments from other instances and caches it locally for viewing. This cache can grow quite large if
 not cleaned up periodically and can cause issues such as low disk space or a bloated S3 bucket.
 
-The recommended method to clean up the remote media cache is a cron job that runs daily like so (put this in the etherhive system user's crontab with `crontab -e`.)
+The recommended method to clean up the remote media cache is a cron job that runs daily like so (put this in the hiveway system user's crontab with `crontab -e`.)
 
 ```sh
 RAILS_ENV=production
-@daily cd /home/etherhive/live && /home/etherhive/.rbenv/shims/bundle exec rake etherhive:media:remove_remote
+@daily cd /home/hiveway/live && /home/hiveway/.rbenv/shims/bundle exec rake hiveway:media:remove_remote
 ```
 
 That rake task removes cached remote media attachments that are older than NUM_DAYS, NUM_DAYS defaults to 7 days (1 week) if not specified. NUM_DAYS is another environment variable so you can specify it like so:
@@ -544,7 +544,7 @@ That rake task removes cached remote media attachments that are older than NUM_D
 ```sh
 RAILS_ENV=production
 NUM_DAYS=14
-@daily cd /home/etherhive/live && /home/etherhive/.rbenv/shims/bundle exec rake etherhive:media:remove_remote
+@daily cd /home/hiveway/live && /home/hiveway/.rbenv/shims/bundle exec rake hiveway:media:remove_remote
 ```
 
 ## Email Service
@@ -561,9 +561,9 @@ SMTP_SERVER=smtp.mailgun.org
 SMTP_PORT=587
 SMTP_LOGIN=anAccountThatIsntPostmaster@mstdn.domain.com
 SMTP_PASSWORD=HolySnacksAPassword
-SMTP_FROM_ADDRESS=Domain.com EtherHive Admin <notifications@domain.com>
+SMTP_FROM_ADDRESS=Domain.com Hiveway Admin <notifications@domain.com>
 
 
-That is all! If everything was done correctly, an [EtherHive](https://github.com/etherhive/etherhive/) instance will appear when you visit `https://example.com` in a web browser.
+That is all! If everything was done correctly, an [Hiveway](https://github.com/hiveway/hiveway/) instance will appear when you visit `https://example.com` in a web browser.
 
 Congratulations !
