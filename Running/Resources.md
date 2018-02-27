@@ -1,4 +1,4 @@
-Running EtherHive requires some server resources. If you're wondering how much, you've come to the right place.
+Running Hiveway requires some server resources. If you're wondering how much, you've come to the right place.
 Here are some information about what you'll need for running your instance.
 
 - CPU: 1.8+ Ghz, 4 cores with HT
