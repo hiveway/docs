@@ -1,7 +1,7 @@
 Development guide
 =================
 
-**Don't use Docker to do development**. It's a quick way to get EtherHive running in production, it's **really really inconvenient for development**. Normally in Rails development environment you get hot reloading of backend code and on-the-fly compilation of assets like JS and CSS, but you lose those benefits by compiling a Docker image. If you want to contribute to EtherHive, it is worth it to simply set up a proper development environment.
+**Don't use Docker to do development**. It's a quick way to get Hiveway running in production, it's **really really inconvenient for development**. Normally in Rails development environment you get hot reloading of backend code and on-the-fly compilation of assets like JS and CSS, but you lose those benefits by compiling a Docker image. If you want to contribute to Hiveway, it is worth it to simply set up a proper development environment.
 
 ## Linux
 
@@ -22,13 +22,13 @@ Install JavaScript dependencies with this command:
 
     yarn install --pure-lockfile
 
-By default the development environment wants to connect to a `etherhive_development` database on localhost using your user/ident to login to Postgres (i.e. not a md5 password)
+By default the development environment wants to connect to a `hiveway_development` database on localhost using your user/ident to login to Postgres (i.e. not a md5 password)
 
-To setup the `etherhive_development` database, run:
+To setup the `hiveway_development` database, run:
 
     bundle exec rails db:setup
 
-You can then run EtherHive with:
+You can then run Hiveway with:
 
     bundle exec rails server
 
@@ -43,7 +43,7 @@ Another, optional approach to managing the different processes starting (Rails, 
 
 Finally, open `http://localhost:3000` in your browser.
 
-By default, your development environment will have an admin account created for you to use - the email address will be `admin@YOURDOMAIN` (e.g. admin@localhost:3000) and the password will be `etherhiveadmin`.
+By default, your development environment will have an admin account created for you to use - the email address will be `admin@YOURDOMAIN` (e.g. admin@localhost:3000) and the password will be `hivewayadmin`.
 
 You can run tests with:
 
@@ -76,7 +76,7 @@ Follow the Linux setup as described above, but with these considerations:
   it cannot be found while building the gem, this is likely the problem. You
   will need to directly modify `mkmf.rb` to get this to install.
 
-The bundle configuration as of EtherHive 2.0's Gemfile:
+The bundle configuration of Hiveway Gemfile:
 
 ```sh
 bundle config build.nokogiri --use-system-libraries --with-xml2-include=/usr/local/include/libxml2/ --with-opt-include=/usr/local/include --with-xslt-include=/usr/local/include/libxslt --with-exslt-include=/usr/local/include/libexslt --with-xml2-lib=/usr/local/lib
@@ -100,7 +100,7 @@ Modify `mfmk.rb`:
 
 ## Mac
 
-These are self-contained instructions for setting up a development environment on a macOS system. It is assumed that you’ve cloned your fork of EtherHive to a local working directory and that you are in Terminal and in that directory.
+These are self-contained instructions for setting up a development environment on a macOS system. It is assumed that you’ve cloned your fork of Hiveway to a local working directory and that you are in Terminal and in that directory.
 
 ### Prerequisites
 
@@ -144,7 +144,7 @@ These are self-contained instructions for setting up a development environment o
 	In the prompt:
 
 	```
-	CREATE USER etherhive CREATEDB;
+	CREATE USER hiveway CREATEDB;
 	\q
 	```
 
@@ -164,11 +164,11 @@ In separate Terminal windows/tabs:
 
 1. Start PostgreSQL: `/usr/local/bin/postgres`
 2. Start Redis: `redis-server`
-3. Start EtherHive (from the EtherHive folder): `foreman start`
+3. Start Hiveway (from the Hiveway folder): `foreman start`
 
 Go to http://localhost:3000 to see your development instance.
 
-Admin account is `admin@localhost:3000`. Password is `etherhiveadmin`.
+Admin account is `admin@localhost:3000`. Password is `hivewayadmin`.
 
 ## Development tips
 
